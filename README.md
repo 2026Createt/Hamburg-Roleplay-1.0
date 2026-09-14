@@ -17,6 +17,9 @@
 
     <!-- Moderne Google Schriftart importieren -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Lenis für Buttery Smooth Scrolling -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
 
     <style>
         :root {
@@ -35,7 +38,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
+            /* Scroll-Behavior entfernt, weil Lenis das jetzt extrem smooth übernimmt */
         }
 
         /* 1. EIGENER SCROLLBALKEN (Custom Scrollbar) */
@@ -61,7 +64,6 @@
             transform: translate(-50%, -50%); z-index: 10000; pointer-events: none;
             transition: width 0.2s, height 0.2s, transform 0.1s ease-out, background 0.2s;
         }
-        /* Wenn man über Buttons fährt (Hover-Effekt) */
         .cursor-hover #cursor-outline {
             width: 50px; height: 50px; background: rgba(59, 130, 246, 0.1); border-color: transparent;
         }
@@ -120,7 +122,7 @@
         }
         @keyframes pulse-animation { 0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); } 50% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0.4); } }
 
-        /* Hero Section mit Partikeln */
+        /* Hero Section */
         .hero {
             min-height: 100vh; display: flex; flex-direction: column;
             justify-content: center; align-items: center; text-align: center;
@@ -132,7 +134,54 @@
             background: linear-gradient(to top, var(--bg-color), transparent); z-index: 0;
         }
         .hero h1, .hero p, .hero .btn, .hero .status-badge { z-index: 2; position: relative; }
-        .hero h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; margin-bottom: 20px; text-shadow: var(--glow); }
+        
+        /* 3D ÜBERSCHRIFTEN (NEU) */
+        .hero h1 { 
+            font-size: clamp(2.5rem, 6vw, 5rem); 
+            font-weight: 800; 
+            margin-bottom: 20px; 
+            color: #ffffff;
+            text-shadow: 
+                0px 1px 0px #1b365d,
+                0px 2px 0px #1b365d,
+                0px 3px 0px #132742,
+                0px 4px 0px #132742,
+                0px 5px 0px #0c182a,
+                0px 10px 20px rgba(0,0,0,0.8),
+                0px 0px 30px rgba(59, 130, 246, 0.5);
+        }
+        
+        .section-title { 
+            text-align: center; 
+            font-size: 2.8rem; 
+            margin-bottom: 15px; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-shadow: 
+                0px 1px 0px #1b365d,
+                0px 2px 0px #1b365d,
+                0px 3px 0px #132742,
+                0px 4px 0px #132742,
+                0px 10px 15px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease, text-shadow 0.3s ease;
+            cursor: default;
+        }
+        /* 3D Hover Effekt für Überschriften */
+        .section-title:hover {
+            transform: translateY(-3px);
+            text-shadow: 
+                0px 1px 0px #1b365d,
+                0px 2px 0px #1b365d,
+                0px 3px 0px #132742,
+                0px 4px 0px #132742,
+                0px 5px 0px #0c182a,
+                0px 6px 0px #0c182a,
+                0px 15px 25px rgba(0,0,0,0.9),
+                0px 0px 40px rgba(59, 130, 246, 0.8);
+        }
+
         .hero p { font-size: 1.2rem; max-width: 700px; margin-bottom: 40px; color: var(--text-muted); }
 
         /* Partikel Styling */
@@ -176,14 +225,13 @@
             background: var(--card-bg); border: 1px solid var(--accent-light);
             border-radius: 50%; display: flex; justify-content: center; align-items: center;
             color: #fff; font-size: 1.5rem; box-shadow: var(--glow); z-index: 999;
-            transition: all 0.4s ease; text-decoration: none; opacity: 0;
+            transition: all 0.4s ease; text-decoration: none; opacity: 0; cursor: pointer;
         }
         #btt-btn.show { bottom: 30px; opacity: 1; }
         #btt-btn:hover { background: var(--accent-light); transform: translateY(-5px); }
 
         /* Sections & Cards */
         section { padding: 80px 5%; max-width: 1300px; margin: 0 auto; }
-        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
         .section-subtitle { text-align: center; color: var(--text-muted); max-width: 800px; margin: 0 auto 50px auto; font-size: 1.1rem; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
 
@@ -191,8 +239,8 @@
         .card {
             background-color: var(--card-bg); padding: 40px 30px; border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.05); position: relative;
-            transform-style: preserve-3d; /* Wichtig für den 3D Effekt */
-            transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.1s ease-out; /* Kein Transform All hier, JS regelt das */
+            transform-style: preserve-3d;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.1s ease-out;
         }
         .card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
@@ -200,10 +248,10 @@
         }
         .card:hover::before { transform: scaleX(1); }
         .card:hover { border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
-        .card h3, .card p, .card ul, .card a { transform: translateZ(30px); /* Hebt den Text leicht ab */ }
+        .card h3, .card p, .card ul, .card a { transform: translateZ(30px); }
         .card h3 { font-size: 1.5rem; margin-bottom: 15px; color: #fff; display: flex; align-items: center; gap: 12px; }
 
-        /* Roadmap, Partner, Team, FAQ... (Restliche Styles unverändert stark) */
+        /* Restliche Styles */
         .roadmap-container { max-width: 800px; margin: 0 auto; background: var(--card-bg); padding: 40px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
         .progress-box { margin-bottom: 25px; } .progress-box:last-child { margin-bottom: 0; }
         .progress-info { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 600; }
@@ -217,8 +265,8 @@
             color: var(--text-muted); font-weight: 600; text-align: center; padding: 20px;
             transition: all 0.3s ease; text-decoration: none;
         }
-        .partner-card:hover { border-color: var(--accent-light); color: #fff; transform: translateY(-5px); }
-        .partner-card.disabled { cursor: default; } .partner-card.disabled:hover { transform: none; border-color: rgba(255,255,255,0.2); color: var(--text-muted); }
+        .partner-card:hover { border-color: var(--accent-light); color: #fff; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .partner-card.disabled { cursor: default; } .partner-card.disabled:hover { transform: none; border-color: rgba(255,255,255,0.2); color: var(--text-muted); box-shadow: none; }
 
         .team-list li { margin-bottom: 12px; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
         .status-red { color: #ef4444; font-weight: 600; } .status-green { color: #10b981; font-weight: 600; }
@@ -261,26 +309,23 @@
     <!-- Navigation -->
     <nav>
         <div class="logo">Hamburg <span>1.0</span></div>
-        <a href="https://discord.gg/FxgtAXj2e6" class="btn" style="padding: 10px 25px; font-size: 0.9rem;">Jetzt Joinen</a>
+        <a href="https://discord.gg/FxgtAXj2e6" class="btn sound-click" style="padding: 10px 25px; font-size: 0.9rem;">Jetzt Joinen</a>
     </nav>
 
     <!-- Startbereich -->
     <header class="hero" id="home">
-        <!-- Partikel Container wird per JS gefüllt -->
         <div id="particles-container"></div>
-        
         <div class="status-badge">
             <span class="pulse"></span> 🚧 Status: In der Gründungsphase
         </div>
         <h1>QUALITÄT SEIT V1.0</h1>
         <p>Wir bauen den ersten kompromisslosen Serious RP Server für Notruf Hamburg auf Roblox. Aktuell im Aufbau – sichere dir jetzt deinen Platz in der Gründungsphase und gestalte die Zukunft der Stadt mit uns.</p>
-        <a href="https://discord.gg/FxgtAXj2e6" class="btn">Teil des Teams werden</a>
+        <a href="https://discord.gg/FxgtAXj2e6" class="btn sound-click">Teil des Teams werden</a>
     </header>
 
     <!-- News Ticker -->
     <div class="ticker-wrap">
         <div class="ticker-content">
-            <!-- Zweimal der gleiche Inhalt für einen flüssigen Endlos-Loop -->
             🚨 ERNSTHAFTES RP <span>•</span> 🚓 REALISTISCHE EINSÄTZE <span>•</span> 💼 EIGENE WIRTSCHAFT <span>•</span> 🏗️ AKTIV IM AUFBAU <span>•</span> 🤝 GEMEINSCHAFTSPROJEKT <span>•</span> 
             🚨 ERNSTHAFTES RP <span>•</span> 🚓 REALISTISCHE EINSÄTZE <span>•</span> 💼 EIGENE WIRTSCHAFT <span>•</span> 🏗️ AKTIV IM AUFBAU <span>•</span> 🤝 GEMEINSCHAFTSPROJEKT <span>•</span> 
         </div>
@@ -336,9 +381,9 @@
         <div class="grid">
             <div class="card tilt-card" style="border-color: var(--accent-light);">
                 <h3>👑 Projektleitung</h3>
-                <h4 style="color: #fff; margin-bottom: 5px; font-size: 1.2rem;">Paul (flexcitypaul)</h4>
+                <h4 style="color: #fff; margin-bottom: 5px; font-size: 1.2rem; transform: translateZ(30px);">Paul (flexcitypaul)</h4>
                 <p>Serverleitung & Gründer</p>
-                <a href="https://discordapp.com/users/1404543050922987611" class="team-link" target="_blank">🔗 Discord Profil ansehen</a>
+                <a href="https://discordapp.com/users/1404543050922987611" class="team-link sound-click" target="_blank">🔗 Discord Profil ansehen</a>
             </div>
             
             <div class="card tilt-card">
@@ -360,7 +405,7 @@
         <h2 class="section-title">Unsere Partner</h2>
         <p class="section-subtitle">Wir arbeiten mit anderen großartigen Projekten zusammen. Willst du Partner werden? Melde dich!</p>
         <div class="partner-grid">
-            <a href="https://discord.gg/BmAJErtxEU" target="_blank" class="partner-card">Xcom</a>
+            <a href="https://discord.gg/BmAJErtxEU" target="_blank" class="partner-card sound-click">Xcom</a>
             <div class="partner-card disabled">Dein Server hier? Ticket öffnen!</div>
         </div>
     </section>
@@ -369,15 +414,15 @@
     <section id="faq" class="reveal">
         <h2 class="section-title">Häufige Fragen (FAQ)</h2>
         <div class="faq-container">
-            <details>
+            <details class="sound-click">
                 <summary>Was ist das Mindestalter auf dem Server?</summary>
                 <p>Da wir großen Wert auf geistige Reife und seriöses RP legen, setzen wir ein Mindestalter konsequent durch. Genaue Details dazu findest du auf unserem Discord.</p>
             </details>
-            <details>
+            <details class="sound-click">
                 <summary>Brauche ich ein funktionierendes Mikrofon?</summary>
                 <p>Ja, absolut. Für ein realistisches und flüssiges Roleplay ist die Kommunikation per Voice-Chat bei uns Pflicht.</p>
             </details>
-            <details>
+            <details class="sound-click">
                 <summary>Wie kann ich mich als Teamler bewerben?</summary>
                 <p>Da viele Plätze aktuell frei sind, kannst du einfach auf unseren Discord joinen und ein Ticket für deine Teambewerbung eröffnen. Wir freuen uns auf dich!</p>
             </details>
@@ -398,7 +443,7 @@
                     <li>Ein funktionierendes Mikrofon für das Ingame-RP</li>
                     <li>Motivation, eine neue Community mit aufzubauen</li>
                 </ul>
-                <a href="https://discord.gg/FxgtAXj2e6" class="btn">Zum Discord Server</a>
+                <a href="https://discord.gg/FxgtAXj2e6" class="btn sound-click">Zum Discord Server</a>
             </div>
             <div class="discord-widget">
                 <iframe src="https://discord.com/widget?id=1548738485324619907&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" style="border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);"></iframe>
@@ -407,7 +452,7 @@
     </section>
 
     <!-- Back to Top Button -->
-    <a href="#home" id="btt-btn">↑</a>
+    <a href="#home" id="btt-btn" class="sound-click">↑</a>
 
     <!-- Footer -->
     <footer>
@@ -425,56 +470,73 @@
             }, 1800);
         });
 
-        // 2. Scroll Animation (Reveal) & Back to Top Button
+        // 2. Lenis - BUTTERY SMOOTH SCROLLING
+        const lenis = new Lenis({
+            duration: 1.5, // Wie lange der Scroll dauert (macht es super smooth und elegant)
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Die mathematische Kurve für das Gleiten
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // 3. Scroll Animation (Reveal) & Back to Top Button
         const bttBtn = document.getElementById("btt-btn");
         function handleScroll() {
-            // Reveal Elemente
             let reveals = document.querySelectorAll(".reveal");
             for (let i = 0; i < reveals.length; i++) {
                 if (reveals[i].getBoundingClientRect().top < window.innerHeight - 100) {
                     reveals[i].classList.add("active");
                 }
             }
-            // Back to Top Button ein/ausblenden
             if (window.scrollY > 500) { bttBtn.classList.add("show"); } 
             else { bttBtn.classList.remove("show"); }
         }
         window.addEventListener("scroll", handleScroll);
         handleScroll();
 
-        // 3. Eigener Mauszeiger (Custom Cursor)
+        // Lenis übernimmt den Anker-Link für Back-To-Top weich
+        bttBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            lenis.scrollTo('#home');
+        });
+
+        // 4. Eigener Mauszeiger (Custom Cursor)
         const dot = document.getElementById("cursor-dot");
         const outline = document.getElementById("cursor-outline");
         window.addEventListener("mousemove", (e) => {
             dot.style.left = e.clientX + "px";
             dot.style.top = e.clientY + "px";
-            // Outline folgt etwas verzögert (geschmeidiger Effekt)
             outline.animate({
                 left: e.clientX + "px",
                 top: e.clientY + "px"
             }, { duration: 150, fill: "forwards" });
         });
-        // Hover Effekt für klickbare Elemente
-        const interactables = document.querySelectorAll('a, button, .card, details summary');
+        const interactables = document.querySelectorAll('a, button, .card, details summary, .partner-card');
         interactables.forEach(el => {
             el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
             el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
         });
 
-        // 4. 3D Tilt Effekt für die Karten
+        // 5. 3D Tilt Effekt für die Karten
         const tiltCards = document.querySelectorAll(".tilt-card");
         tiltCards.forEach(card => {
             card.addEventListener("mousemove", (e) => {
                 const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left; // x Position in der Karte
-                const y = e.clientY - rect.top;  // y Position in der Karte
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                
-                // Berechne Rotation (max 10 Grad Neigung)
                 const rotateX = ((y - centerY) / centerY) * -10; 
                 const rotateY = ((x - centerX) / centerX) * 10;
-                
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
             });
             card.addEventListener("mouseleave", () => {
@@ -482,20 +544,71 @@
             });
         });
 
-        // 5. Fliegende Lichtpartikel im Hintergrund
+        // 6. Fliegende Lichtpartikel im Hintergrund
         const particlesContainer = document.getElementById('particles-container');
         for (let i = 0; i < 25; i++) {
             let span = document.createElement('span');
             span.classList.add('particle');
-            // Zufällige Größe, Position und Geschwindigkeit
             let size = Math.random() * 4 + 2; 
             span.style.width = size + 'px';
             span.style.height = size + 'px';
             span.style.left = Math.random() * 100 + '%';
-            span.style.animationDuration = (Math.random() * 10 + 5) + 's'; // 5-15 Sekunden
+            span.style.animationDuration = (Math.random() * 10 + 5) + 's'; 
             span.style.animationDelay = (Math.random() * 5) + 's';
             particlesContainer.appendChild(span);
         }
+
+        // 7. WEB AUDIO API - UI SOUND EFFEKTE (Ohne MP3s!)
+        let audioCtx;
+        
+        // Erst beim ersten Klick initialisieren (Browser Richtlinie)
+        document.body.addEventListener('click', function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            document.body.removeEventListener('click', initAudio);
+        });
+
+        function playHoverSound() {
+            if (!audioCtx || audioCtx.state === 'suspended') return;
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime); // Helles Klicken
+            osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.03);
+            gainNode.gain.setValueAtTime(0.015, audioCtx.currentTime); // Sehr, sehr leise
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.03);
+        }
+
+        function playClickSound() {
+            if (!audioCtx || audioCtx.state === 'suspended') return;
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(300, audioCtx.currentTime); // Tieferes Bestätigen
+            osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+            gainNode.gain.setValueAtTime(0.03, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        // Töne an Elemente binden
+        interactables.forEach(el => {
+            el.addEventListener('mouseenter', playHoverSound);
+        });
+        document.querySelectorAll('.sound-click').forEach(el => {
+            el.addEventListener('click', playClickSound);
+        });
     </script>
 </body>
 </html>
