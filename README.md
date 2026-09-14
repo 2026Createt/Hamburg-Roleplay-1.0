@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,6 @@
     <meta name="theme-color" content="#1b365d">
 
     <!-- Favicon -->
-    <!-- ERSETZE DIESE URL durch den Link zu deinem kleinen Logo -->
     <link rel="icon" type="image/png" href="HIER_LOGO_URL_EINTRAGEN.png">
 
     <!-- Moderne Google Schriftart importieren -->
@@ -28,6 +27,7 @@
             --accent-dark: #1b365d;
             --accent-light: #3b82f6;
             --glow: 0 0 20px rgba(59, 130, 246, 0.4);
+            --status-orange: #f59e0b;
         }
 
         * {
@@ -43,6 +43,17 @@
             color: var(--text-main);
             line-height: 1.7;
             overflow-x: hidden;
+        }
+
+        /* Scroll Animation Klassen */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Navigation */
@@ -66,9 +77,35 @@
             letter-spacing: 2px;
             text-transform: uppercase;
         }
+        .logo span { color: var(--accent-light); }
 
-        .logo span {
-            color: var(--accent-light);
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--status-orange);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            z-index: 1;
+        }
+        .pulse {
+            width: 10px;
+            height: 10px;
+            background-color: var(--status-orange);
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+            animation: pulse-animation 2s infinite;
+        }
+        @keyframes pulse-animation {
+            0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
         }
 
         /* Hero Section */
@@ -83,7 +120,6 @@
             background: radial-gradient(circle at top, var(--accent-dark) 0%, var(--bg-color) 60%);
             position: relative;
         }
-
         .hero::after {
             content: '';
             position: absolute;
@@ -92,7 +128,6 @@
             height: 150px;
             background: linear-gradient(to top, var(--bg-color), transparent);
         }
-
         .hero h1 {
             font-size: clamp(2.5rem, 6vw, 5rem);
             font-weight: 800;
@@ -100,7 +135,6 @@
             text-shadow: var(--glow);
             z-index: 1;
         }
-
         .hero p {
             font-size: 1.2rem;
             max-width: 700px;
@@ -109,6 +143,7 @@
             z-index: 1;
         }
 
+        /* Buttons */
         .btn {
             background: linear-gradient(135deg, var(--accent-light), var(--accent-dark));
             color: #fff;
@@ -121,8 +156,8 @@
             box-shadow: var(--glow);
             border: 2px solid transparent;
             z-index: 1;
+            display: inline-block;
         }
-
         .btn:hover {
             background: transparent;
             border-color: var(--accent-light);
@@ -136,7 +171,6 @@
             max-width: 1300px;
             margin: 0 auto;
         }
-
         .section-title {
             text-align: center;
             font-size: 2.5rem;
@@ -145,7 +179,6 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-
         .section-subtitle {
             text-align: center;
             color: var(--text-muted);
@@ -160,7 +193,6 @@
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
         }
-
         .card {
             background-color: var(--card-bg);
             padding: 40px 30px;
@@ -170,30 +202,20 @@
             position: relative;
             overflow: hidden;
         }
-
         .card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
+            top: 0; left: 0; width: 100%; height: 4px;
             background: var(--accent-light);
-            transform: scaleX(0);
-            transform-origin: left;
+            transform: scaleX(0); transform-origin: left;
             transition: transform 0.4s ease;
         }
-
-        .card:hover::before {
-            transform: scaleX(1);
-        }
-
+        .card:hover::before { transform: scaleX(1); }
         .card:hover {
             transform: translateY(-10px);
             border-color: rgba(59, 130, 246, 0.2);
             box-shadow: 0 15px 30px rgba(0,0,0,0.5);
         }
-
         .card h3 {
             font-size: 1.5rem;
             margin-bottom: 15px;
@@ -203,7 +225,90 @@
             gap: 12px;
         }
 
-        /* Info Layout für Discord Widget */
+        /* Team & List Styling */
+        .team-list li {
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .status-red { color: #ef4444; font-weight: 600; }
+        .status-green { color: #10b981; font-weight: 600; }
+        
+        .team-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            display: inline-block;
+            transition: color 0.3s;
+        }
+        .team-link:hover { color: var(--accent-light); }
+
+        /* FAQ Styling */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        details {
+            background: var(--card-bg);
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+            overflow: hidden;
+        }
+        summary {
+            padding: 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--accent-light);
+            transition: transform 0.3s;
+        }
+        details[open] summary::after { transform: rotate(45deg); }
+        details p {
+            padding: 0 20px 20px 20px;
+            color: var(--text-muted);
+        }
+
+        /* Galerie (Sneak Peek) */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .gallery-item {
+            width: 100%;
+            height: 200px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            overflow: hidden;
+        }
+        /* Wenn du Bilder hast, entferne das Display:flex oben und nutze: */
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.05); }
+
+        /* Discord Widget Area */
         .discord-section {
             display: flex;
             flex-wrap: wrap;
@@ -215,44 +320,13 @@
             border: 1px solid rgba(255,255,255,0.05);
             margin-top: 50px;
         }
+        .discord-text { flex: 1; min-width: 300px; }
+        .discord-text h2 { font-size: 2.2rem; margin-bottom: 20px; }
+        .discord-text ul { list-style: none; margin-bottom: 30px; }
+        .discord-text li { margin-bottom: 10px; padding-left: 30px; position: relative; color: var(--text-muted); }
+        .discord-text li::before { content: '✔️'; position: absolute; left: 0; top: 0; }
+        .discord-widget { flex: 1; min-width: 350px; display: flex; justify-content: center; }
 
-        .discord-text {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .discord-text h2 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-        }
-
-        .discord-text ul {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-
-        .discord-text li {
-            margin-bottom: 10px;
-            padding-left: 30px;
-            position: relative;
-            color: var(--text-muted);
-        }
-
-        .discord-text li::before {
-            content: '✔️';
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
-
-        .discord-widget {
-            flex: 1;
-            min-width: 350px;
-            display: flex;
-            justify-content: center;
-        }
-
-        /* Footer */
         footer {
             text-align: center;
             padding: 40px;
@@ -268,18 +342,21 @@
     <!-- Navigation -->
     <nav>
         <div class="logo">Hamburg <span>1.0</span></div>
-        <a href="#discord" class="btn" style="padding: 10px 25px; font-size: 0.9rem;">Jetzt Joinen</a>
+        <a href="https://discord.gg/FxgtAXj2e6" class="btn" style="padding: 10px 25px; font-size: 0.9rem;">Jetzt Joinen</a>
     </nav>
 
     <!-- Startbereich -->
     <header class="hero">
+        <div class="status-badge">
+            <span class="pulse"></span> 🚧 Status: In der Gründungsphase
+        </div>
         <h1>QUALITÄT SEIT V1.0</h1>
         <p>Wir bauen den ersten kompromisslosen Serious RP Server für Notruf Hamburg auf Roblox. Aktuell im Aufbau – sichere dir jetzt deinen Platz in der Gründungsphase und gestalte die Zukunft der Stadt mit uns.</p>
-        <a href="#discord" class="btn">Teil des Teams werden</a>
+        <a href="https://discord.gg/FxgtAXj2e6" class="btn">Teil des Teams werden</a>
     </header>
 
     <!-- Philosophie & Konzept -->
-    <section id="konzept">
+    <section id="konzept" class="reveal">
         <h2 class="section-title">Unser Konzept</h2>
         <p class="section-subtitle">Wir heben uns bewusst von der Masse ab. Bei uns findest du kein sinnloses Chaos, sondern strukturierte Abläufe, klare Regeln und eine reife Community.</p>
         
@@ -289,44 +366,81 @@
                 <p>Schluss mit Trolling und "RDM". Wir setzen unser Mindestalter konsequent durch und ahnden Regelbrüche rigoros. Bei uns steht hochwertiges, realistisches und durchdachtes Roleplay im absoluten Fokus.</p>
             </div>
             <div class="card">
-                <h3>🏗️ Projekt im Aufbau</h3>
-                <p>Du bist bei uns keine Nummer. Wir releasen erst, wenn das Fundament aus motivierten Spielern und fähigen Teamlern steht. Gestalte den Server von Tag eins an mit und bringe deine eigenen Ideen ein!</p>
+                <h3>🚓 Deine Möglichkeiten</h3>
+                <p>Ob als Polizist für Sicherheit sorgen, als Retter beim RTW Leben retten oder als Zivilist das Herzstück der Wirtschaft bilden – deine Story in Hamburg liegt ganz bei dir.</p>
             </div>
             <div class="card">
-                <h3>🤝 Team & Support</h3>
-                <p>Egal ob als Moderator, im Support oder in der Server-Technik: Wir suchen engagierte und reife Persönlichkeiten, die Verantwortung übernehmen wollen. Ein fairer Umgang auf Augenhöhe ist uns dabei am wichtigsten.</p>
+                <h3>🤝 Projekt im Aufbau</h3>
+                <p>Du bist bei uns keine Nummer. Wir releasen erst, wenn das Fundament aus motivierten Spielern und fähigen Teamlern steht. Bringe deine eigenen Ideen direkt mit ein!</p>
             </div>
         </div>
     </section>
 
-    <!-- Fraktionen -->
-    <section>
-        <h2 class="section-title">Deine Möglichkeiten</h2>
-        <p class="section-subtitle">Wähle deinen Weg in Hamburg. Welche Rolle übernimmst du in unserer Stadt?</p>
+    <!-- Team & Recruiting (NEU) -->
+    <section id="team" class="reveal">
+        <h2 class="section-title">Team & Recruiting</h2>
+        <p class="section-subtitle">Wir suchen engagierte und reife Persönlichkeiten, die Verantwortung übernehmen wollen. Komm ins Team und baue Hamburg 1.0 mit uns auf!</p>
         
         <div class="grid">
-            <div class="card">
-                <h3>🚓 Polizei Hamburg</h3>
-                <p>Sorge für Sicherheit auf den Straßen. Vom einfachen Streifendienst über Verkehrskontrollen bis hin zu Großeinsätzen – koordiniertes Vorgehen und Funkdisziplin stehen hier an der Tagesordnung.</p>
+            <div class="card" style="border-color: var(--accent-light);">
+                <h3>👑 Projektleitung</h3>
+                <h4 style="color: #fff; margin-bottom: 5px; font-size: 1.2rem;">Paul (flexcitypaul)</h4>
+                <p>Serverleitung & Gründer</p>
+                <a href="https://discordapp.com/users/1404543050922987611" class="team-link" target="_blank">🔗 Discord Profil ansehen</a>
             </div>
+            
             <div class="card">
-                <h3>🚑 Feuerwehr & Rettung</h3>
-                <p>Rette Leben in brenzligen Situationen. Fahre mit dem RTW zu medizinischen Notfällen, leiste Erste Hilfe oder bekämpfe als Teil der Feuerwehr Brände und technische Gefahren im Stadtgebiet.</p>
+                <h3>📋 Offene Stellen</h3>
+                <ul class="team-list" style="list-style: none; margin-top: 15px;">
+                    <li><span class="status-red">❌</span> Serverleitung <span class="status-red">(Besetzt)</span></li>
+                    <li><span class="status-red">❌</span> Stv. Serverleitung <span class="status-red">(Besetzt)</span></li>
+                    <li><span class="status-green">✔️</span> Administration <span class="status-green">(Frei)</span></li>
+                    <li><span class="status-green">✔️</span> Moderation <span class="status-green">(Frei)</span></li>
+                    <li><span class="status-green">✔️</span> Support & Technik <span class="status-green">(Frei)</span></li>
+                </ul>
             </div>
-            <div class="card">
-                <h3>🚶 Zivilist & Wirtschaft</h3>
-                <p>Das Herzstück der Stadt. Gehe einem normalen Beruf nach, gründe dein eigenes Unternehmen, plane spannende Zivil-Events oder schlage den kriminellen Weg ein – deine Story liegt ganz bei dir.</p>
-            </div>
+        </div>
+    </section>
+
+    <!-- Sneak Peek Galerie (NEU) -->
+    <section id="galerie" class="reveal">
+        <h2 class="section-title">Sneak Peek</h2>
+        <p class="section-subtitle">Ein kleiner Einblick in die Entwicklung und unsere Designs.</p>
+        <div class="gallery-grid">
+            <!-- Platzhalter für Bilder. Ersetze das <div> mit einem <img> Tag, sobald du Bilder hast -->
+            <div class="gallery-item">[Bild 1 - z.B. Logo / Uniform]</div>
+            <div class="gallery-item">[Bild 2 - z.B. Ingame Szene]</div>
+            <div class="gallery-item">[Bild 3 - z.B. Fahrzeug]</div>
+            <div class="gallery-item">[Bild 4 - z.B. Wache]</div>
+        </div>
+    </section>
+
+    <!-- FAQ Bereich (NEU) -->
+    <section id="faq" class="reveal">
+        <h2 class="section-title">Häufige Fragen (FAQ)</h2>
+        <div class="faq-container">
+            <details>
+                <summary>Was ist das Mindestalter auf dem Server?</summary>
+                <p>Da wir großen Wert auf geistige Reife und seriöses RP legen, setzen wir ein Mindestalter konsequent durch. Genaue Details dazu findest du auf unserem Discord.</p>
+            </details>
+            <details>
+                <summary>Brauche ich ein funktionierendes Mikrofon?</summary>
+                <p>Ja, absolut. Für ein realistisches und flüssiges Roleplay ist die Kommunikation per Voice-Chat bei uns Pflicht.</p>
+            </details>
+            <details>
+                <summary>Wie kann ich mich als Teamler bewerben?</summary>
+                <p>Da viele Plätze (außer der Leitungsebene) aktuell frei sind, kannst du einfach auf unseren Discord joinen und ein Ticket für deine Teambewerbung eröffnen. Wir freuen uns auf dich!</p>
+            </details>
         </div>
     </section>
 
     <!-- Discord & Widget Section -->
-    <section id="discord">
+    <section id="discord" class="reveal">
         <div class="discord-section">
             <div class="discord-text">
                 <h2>Werde Teil von Hamburg 1.0</h2>
                 <p style="color: var(--text-muted); margin-bottom: 20px;">
-                    Wir warten gezielt auf genügend Spieler und Teammitglieder, bevor der große Release startet. Komm auf unseren Discord, lies dir das Regelwerk durch und erstelle dein Ticket für die Whitelist oder eine Teambewerbung!
+                    Wir warten gezielt auf genügend Spieler und Teammitglieder, bevor der große Release startet. Komm auf unseren Discord und erstelle dein Ticket für die Whitelist oder eine Teambewerbung!
                 </p>
                 
                 <h3>Das erwarten wir:</h3>
@@ -338,8 +452,7 @@
                     <li>Spaß an fairem und realistischem Roleplay</li>
                 </ul>
 
-                <!-- ERSETZE DIESEN LINK durch deinen Discord-Einladungslink (z.B. https://discord.gg/...) -->
-                <a href="HIER_DISCORD_LINK_EINTRAGEN" class="btn">Zum Discord Server</a>
+                <a href="https://discord.gg/FxgtAXj2e6" class="btn">Zum Discord Server</a>
             </div>
             
             <div class="discord-widget">
@@ -353,6 +466,23 @@
     <footer>
         <p>&copy; 2026 Hamburg 1.0 Roleplay. Alle Rechte vorbehalten. Dies ist ein privates und unabhängiges Roblox-Projekt.</p>
     </footer>
+
+    <!-- Script für die Scroll-Animation -->
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100; // Ab wann das Element beim Scrollen sichtbar wird
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Einmal beim Laden ausführen
+    </script>
 
 </body>
 </html>
