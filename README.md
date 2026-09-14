@@ -11,7 +11,7 @@
     <!-- ERSETZE DIESE URL durch den echten Link zu deinem Banner-Bild -->
     <meta property="og:image" content="https://images-ext-1.discordapp.net/external/LhY2dwlnsWtWn1Gry4pQnq_VSC66gNHwTypoEXoxOzc/https/media.galaxybot.app/server/1548738485324619907/f0346fa9-dd0d-4f74-bef2-a3d9fe88af6d.jpeg?format=webp">
     <!-- ERSETZE DIESE URL durch die echte Adresse deiner Website -->
-    <meta property="og:url" content="HIER_WEBSITE_URL_EINTRAGEN">
+    <meta property="og:url" content="https://2026createt.github.io/Hamburg-Roleplay-1.0/">
     <meta name="theme-color" content="#1b365d">
 
     <!-- Favicon (Das kleine Logo im Browser-Tab) -->
