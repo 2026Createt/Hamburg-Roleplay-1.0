@@ -38,7 +38,6 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
-            /* Scroll-Behavior entfernt, weil Lenis das jetzt extrem smooth übernimmt */
         }
 
         /* 1. EIGENER SCROLLBALKEN (Custom Scrollbar) */
@@ -135,7 +134,7 @@
         }
         .hero h1, .hero p, .hero .btn, .hero .status-badge { z-index: 2; position: relative; }
         
-        /* 3D ÜBERSCHRIFTEN (NEU) */
+        /* 3D ÜBERSCHRIFTEN */
         .hero h1 { 
             font-size: clamp(2.5rem, 6vw, 5rem); 
             font-weight: 800; 
@@ -168,7 +167,6 @@
             transition: transform 0.3s ease, text-shadow 0.3s ease;
             cursor: default;
         }
-        /* 3D Hover Effekt für Überschriften */
         .section-title:hover {
             transform: translateY(-3px);
             text-shadow: 
@@ -406,6 +404,7 @@
         <p class="section-subtitle">Wir arbeiten mit anderen großartigen Projekten zusammen. Willst du Partner werden? Melde dich!</p>
         <div class="partner-grid">
             <a href="https://discord.gg/BmAJErtxEU" target="_blank" class="partner-card sound-click">Xcom</a>
+            <a href="https://discord.gg/ECVY5bzXD7" target="_blank" class="partner-card sound-click">Regensburg Roleplay VC</a>
             <div class="partner-card disabled">Dein Server hier? Ticket öffnen!</div>
         </div>
     </section>
@@ -472,8 +471,8 @@
 
         // 2. Lenis - BUTTERY SMOOTH SCROLLING
         const lenis = new Lenis({
-            duration: 1.5, // Wie lange der Scroll dauert (macht es super smooth und elegant)
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Die mathematische Kurve für das Gleiten
+            duration: 1.5, 
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
             direction: 'vertical',
             gestureDirection: 'vertical',
             smooth: true,
@@ -503,7 +502,6 @@
         window.addEventListener("scroll", handleScroll);
         handleScroll();
 
-        // Lenis übernimmt den Anker-Link für Back-To-Top weich
         bttBtn.addEventListener('click', (e) => {
             e.preventDefault();
             lenis.scrollTo('#home');
@@ -558,10 +556,9 @@
             particlesContainer.appendChild(span);
         }
 
-        // 7. WEB AUDIO API - UI SOUND EFFEKTE (Ohne MP3s!)
+        // 7. WEB AUDIO API - UI SOUND EFFEKTE
         let audioCtx;
         
-        // Erst beim ersten Klick initialisieren (Browser Richtlinie)
         document.body.addEventListener('click', function initAudio() {
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -577,9 +574,9 @@
             const osc = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
             osc.type = 'sine';
-            osc.frequency.setValueAtTime(800, audioCtx.currentTime); // Helles Klicken
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime); 
             osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.03);
-            gainNode.gain.setValueAtTime(0.015, audioCtx.currentTime); // Sehr, sehr leise
+            gainNode.gain.setValueAtTime(0.015, audioCtx.currentTime); 
             gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
             osc.connect(gainNode);
             gainNode.connect(audioCtx.destination);
@@ -592,7 +589,7 @@
             const osc = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
             osc.type = 'triangle';
-            osc.frequency.setValueAtTime(300, audioCtx.currentTime); // Tieferes Bestätigen
+            osc.frequency.setValueAtTime(300, audioCtx.currentTime); 
             osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
             gainNode.gain.setValueAtTime(0.03, audioCtx.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
@@ -602,7 +599,6 @@
             osc.stop(audioCtx.currentTime + 0.1);
         }
 
-        // Töne an Elemente binden
         interactables.forEach(el => {
             el.addEventListener('mouseenter', playHoverSound);
         });
