@@ -9,7 +9,7 @@
     <meta property="og:title" content="Hamburg 1.0 Roleplay | Notruf Hamburg">
     <meta property="og:description" content="Wir bauen den ersten Serious RP Server für Notruf Hamburg auf Roblox. Aktuell im Aufbau – sichere dir deinen Platz im Team oder als Spieler!">
     <!-- ERSETZE DIESE URL durch den echten Link zu deinem Banner-Bild -->
-    <meta property="og:image" content="HIER_BILD_URL_EINTRAGEN.jpg">
+    <meta property="og:image" content="https://images-ext-1.discordapp.net/external/LhY2dwlnsWtWn1Gry4pQnq_VSC66gNHwTypoEXoxOzc/https/media.galaxybot.app/server/1548738485324619907/f0346fa9-dd0d-4f74-bef2-a3d9fe88af6d.jpeg?format=webp">
     <!-- ERSETZE DIESE URL durch die echte Adresse deiner Website -->
     <meta property="og:url" content="HIER_WEBSITE_URL_EINTRAGEN">
     <meta name="theme-color" content="#1b365d">
