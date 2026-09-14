@@ -38,6 +38,34 @@
             scroll-behavior: smooth;
         }
 
+        /* Ladebildschirm (Preloader) */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+        }
+        .preloader-img {
+            max-width: 350px;
+            width: 90%;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            animation: preloader-pulse 2s infinite;
+        }
+        @keyframes preloader-pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
@@ -70,13 +98,7 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
             z-index: 1000;
         }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
         .logo span { color: var(--accent-light); }
 
         /* Status Badge */
@@ -95,10 +117,7 @@
             z-index: 1;
         }
         .pulse {
-            width: 10px;
-            height: 10px;
-            background-color: var(--status-orange);
-            border-radius: 50%;
+            width: 10px; height: 10px; background-color: var(--status-orange); border-radius: 50%;
             box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
             animation: pulse-animation 2s infinite;
         }
@@ -121,204 +140,115 @@
             position: relative;
         }
         .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 150px;
+            content: ''; position: absolute; bottom: 0; width: 100%; height: 150px;
             background: linear-gradient(to top, var(--bg-color), transparent);
         }
         .hero h1 {
             font-size: clamp(2.5rem, 6vw, 5rem);
-            font-weight: 800;
-            margin-bottom: 20px;
-            text-shadow: var(--glow);
-            z-index: 1;
+            font-weight: 800; margin-bottom: 20px;
+            text-shadow: var(--glow); z-index: 1;
         }
         .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin-bottom: 40px;
-            color: var(--text-muted);
-            z-index: 1;
+            font-size: 1.2rem; max-width: 700px; margin-bottom: 40px;
+            color: var(--text-muted); z-index: 1;
         }
 
         /* Buttons */
         .btn {
             background: linear-gradient(135deg, var(--accent-light), var(--accent-dark));
-            color: #fff;
-            padding: 15px 40px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: var(--glow);
-            border: 2px solid transparent;
-            z-index: 1;
-            display: inline-block;
+            color: #fff; padding: 15px 40px; border-radius: 30px;
+            text-decoration: none; font-weight: 600; font-size: 1.1rem;
+            transition: all 0.3s ease; box-shadow: var(--glow);
+            border: 2px solid transparent; z-index: 1; display: inline-block;
         }
         .btn:hover {
-            background: transparent;
-            border-color: var(--accent-light);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.6);
+            background: transparent; border-color: var(--accent-light);
+            transform: translateY(-3px); box-shadow: 0 10px 30px rgba(59, 130, 246, 0.6);
         }
 
         /* Sections General */
-        section {
-            padding: 100px 5%;
-            max-width: 1300px;
-            margin: 0 auto;
-        }
+        section { padding: 100px 5%; max-width: 1300px; margin: 0 auto; }
         .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            text-align: center; font-size: 2.5rem; margin-bottom: 20px;
+            font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
         }
         .section-subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            max-width: 800px;
-            margin: 0 auto 60px auto;
-            font-size: 1.1rem;
+            text-align: center; color: var(--text-muted); max-width: 800px;
+            margin: 0 auto 60px auto; font-size: 1.1rem;
         }
 
         /* Grid Cards */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .card {
-            background-color: var(--card-bg);
-            padding: 40px 30px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+            background-color: var(--card-bg); padding: 40px 30px;
+            border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s ease; position: relative; overflow: hidden;
         }
         .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
-            background: var(--accent-light);
-            transform: scaleX(0); transform-origin: left;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--accent-light); transform: scaleX(0); transform-origin: left;
             transition: transform 0.4s ease;
         }
         .card:hover::before { transform: scaleX(1); }
         .card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(59, 130, 246, 0.2);
+            transform: translateY(-10px); border-color: rgba(59, 130, 246, 0.2);
             box-shadow: 0 15px 30px rgba(0,0,0,0.5);
         }
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .card h3 { font-size: 1.5rem; margin-bottom: 15px; color: #fff; display: flex; align-items: center; gap: 12px; }
+
+        /* Roadmap (Neu) */
+        .roadmap-container {
+            max-width: 800px; margin: 0 auto;
+            background: var(--card-bg); padding: 40px;
+            border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);
         }
+        .progress-box { margin-bottom: 25px; }
+        .progress-box:last-child { margin-bottom: 0; }
+        .progress-info { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 600; }
+        .progress-bar-bg { width: 100%; height: 12px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-dark), var(--accent-light)); border-radius: 10px; transition: width 1.5s ease-in-out; }
+
+        /* Partner Bereich (Neu) */
+        .partner-grid {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;
+        }
+        .partner-card {
+            background: var(--card-bg); width: 250px; height: 120px;
+            border-radius: 12px; border: 1px dashed rgba(255,255,255,0.2);
+            display: flex; justify-content: center; align-items: center;
+            color: var(--text-muted); font-weight: 600; text-align: center; padding: 20px;
+            transition: all 0.3s ease; cursor: default;
+        }
+        .partner-card:hover { border-color: var(--accent-light); color: #fff; transform: translateY(-5px); }
 
         /* Team & List Styling */
-        .team-list li {
-            margin-bottom: 12px;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .team-list li { margin-bottom: 12px; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
         .status-red { color: #ef4444; font-weight: 600; }
         .status-green { color: #10b981; font-weight: 600; }
-        
-        .team-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            margin-top: 15px;
-            display: inline-block;
-            transition: color 0.3s;
-        }
+        .team-link { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; margin-top: 15px; display: inline-block; transition: color 0.3s; }
         .team-link:hover { color: var(--accent-light); }
 
         /* FAQ Styling */
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        details {
-            background: var(--card-bg);
-            margin-bottom: 15px;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.05);
-            overflow: hidden;
-        }
-        summary {
-            padding: 20px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        summary::after {
-            content: '+';
-            font-size: 1.5rem;
-            color: var(--accent-light);
-            transition: transform 0.3s;
-        }
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        details { background: var(--card-bg); margin-bottom: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); overflow: hidden; }
+        summary { padding: 20px; font-size: 1.2rem; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::after { content: '+'; font-size: 1.5rem; color: var(--accent-light); transition: transform 0.3s; }
         details[open] summary::after { transform: rotate(45deg); }
-        details p {
-            padding: 0 20px 20px 20px;
-            color: var(--text-muted);
-        }
+        details p { padding: 0 20px 20px 20px; color: var(--text-muted); }
 
         /* Galerie (Sneak Peek) */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         .gallery-item {
-            width: 100%;
-            height: 200px;
-            background: var(--card-bg);
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.05);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            overflow: hidden;
+            width: 100%; height: 200px; background: var(--card-bg); border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: center;
+            align-items: center; color: var(--text-muted); font-size: 0.9rem; overflow: hidden;
         }
-        /* Wenn du Bilder hast, entferne das Display:flex oben und nutze: */
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-        .gallery-item:hover img { transform: scale(1.05); }
 
         /* Discord Widget Area */
         .discord-section {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 50px;
-            background: var(--card-bg);
-            padding: 50px;
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.05);
-            margin-top: 50px;
+            display: flex; flex-wrap: wrap; align-items: center; gap: 50px;
+            background: var(--card-bg); padding: 50px; border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.05); margin-top: 50px;
         }
         .discord-text { flex: 1; min-width: 300px; }
         .discord-text h2 { font-size: 2.2rem; margin-bottom: 20px; }
@@ -327,17 +257,15 @@
         .discord-text li::before { content: '✔️'; position: absolute; left: 0; top: 0; }
         .discord-widget { flex: 1; min-width: 350px; display: flex; justify-content: center; }
 
-        footer {
-            text-align: center;
-            padding: 40px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            background: #04060a;
-        }
+        footer { text-align: center; padding: 40px; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-muted); font-size: 0.9rem; background: #04060a; }
     </style>
 </head>
 <body>
+
+    <!-- LADEBILDSCHIRM (PRELOADER) -->
+    <div id="preloader">
+        <img src="https://images-ext-1.discordapp.net/external/LhY2dwlnsWtWn1Gry4pQnq_VSC66gNHwTypoEXoxOzc/https/media.galaxybot.app/server/1548738485324619907/f0346fa9-dd0d-4f74-bef2-a3d9fe88af6d.jpeg?format=webp" alt="Hamburg 1.0 Roleplay Logo" class="preloader-img">
+    </div>
 
     <!-- Navigation -->
     <nav>
@@ -354,6 +282,38 @@
         <p>Wir bauen den ersten kompromisslosen Serious RP Server für Notruf Hamburg auf Roblox. Aktuell im Aufbau – sichere dir jetzt deinen Platz in der Gründungsphase und gestalte die Zukunft der Stadt mit uns.</p>
         <a href="https://discord.gg/FxgtAXj2e6" class="btn">Teil des Teams werden</a>
     </header>
+
+    <!-- Entwicklungs-Roadmap (NEU) -->
+    <section id="roadmap" class="reveal">
+        <h2 class="section-title">Projekt Fortschritt</h2>
+        <p class="section-subtitle">Wir kommunizieren transparent. Hier siehst du live, wie weit wir mit dem Aufbau sind, bevor der Server offiziell an den Start geht.</p>
+        
+        <div class="roadmap-container">
+            <div class="progress-box">
+                <div class="progress-info">
+                    <span>Discord-Struktur & Regelwerk</span>
+                    <span>100%</span>
+                </div>
+                <div class="progress-bar-bg"><div class="progress-fill" style="width: 100%;"></div></div>
+            </div>
+            
+            <div class="progress-box">
+                <div class="progress-info">
+                    <span>Team-Aufbau (Leitung & Mods)</span>
+                    <span>30%</span>
+                </div>
+                <div class="progress-bar-bg"><div class="progress-fill" style="width: 30%;"></div></div>
+            </div>
+
+            <div class="progress-box">
+                <div class="progress-info">
+                    <span>Server-Technik & Vorbereitung</span>
+                    <span>60%</span>
+                </div>
+                <div class="progress-bar-bg"><div class="progress-fill" style="width: 60%;"></div></div>
+            </div>
+        </div>
+    </section>
 
     <!-- Philosophie & Konzept -->
     <section id="konzept" class="reveal">
@@ -376,7 +336,7 @@
         </div>
     </section>
 
-    <!-- Team & Recruiting (NEU) -->
+    <!-- Team & Recruiting -->
     <section id="team" class="reveal">
         <h2 class="section-title">Team & Recruiting</h2>
         <p class="section-subtitle">Wir suchen engagierte und reife Persönlichkeiten, die Verantwortung übernehmen wollen. Komm ins Team und baue Hamburg 1.0 mit uns auf!</p>
@@ -402,12 +362,23 @@
         </div>
     </section>
 
-    <!-- Sneak Peek Galerie (NEU) -->
+    <!-- Unsere Partner (NEU) -->
+    <section id="partner" class="reveal">
+        <h2 class="section-title">Unsere Partner</h2>
+        <p class="section-subtitle">Wir arbeiten mit anderen großartigen Projekten zusammen. Willst du Partner werden? Melde dich über unseren Discord!</p>
+        
+        <div class="partner-grid">
+            <div class="partner-card">Platzhalter für Partner-Logo 1</div>
+            <div class="partner-card">Platzhalter für Partner-Logo 2</div>
+            <div class="partner-card">Dein Server hier? Ticket öffnen!</div>
+        </div>
+    </section>
+
+    <!-- Sneak Peek Galerie -->
     <section id="galerie" class="reveal">
         <h2 class="section-title">Sneak Peek</h2>
         <p class="section-subtitle">Ein kleiner Einblick in die Entwicklung und unsere Designs.</p>
         <div class="gallery-grid">
-            <!-- Platzhalter für Bilder. Ersetze das <div> mit einem <img> Tag, sobald du Bilder hast -->
             <div class="gallery-item">[Bild 1 - z.B. Logo / Uniform]</div>
             <div class="gallery-item">[Bild 2 - z.B. Ingame Szene]</div>
             <div class="gallery-item">[Bild 3 - z.B. Fahrzeug]</div>
@@ -415,7 +386,7 @@
         </div>
     </section>
 
-    <!-- FAQ Bereich (NEU) -->
+    <!-- FAQ Bereich -->
     <section id="faq" class="reveal">
         <h2 class="section-title">Häufige Fragen (FAQ)</h2>
         <div class="faq-container">
@@ -456,7 +427,6 @@
             </div>
             
             <div class="discord-widget">
-                <!-- Dein eingefügtes Discord Widget -->
                 <iframe src="https://discord.com/widget?id=1548738485324619907&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" style="border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);"></iframe>
             </div>
         </div>
@@ -467,14 +437,24 @@
         <p>&copy; 2026 Hamburg 1.0 Roleplay. Alle Rechte vorbehalten. Dies ist ein privates und unabhängiges Roblox-Projekt.</p>
     </footer>
 
-    <!-- Script für die Scroll-Animation -->
+    <!-- Skripte für Preloader und Scroll-Animation -->
     <script>
+        // Preloader Logik
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                var preloader = document.getElementById('preloader');
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+            }, 1800); // 1.8 Sekunden warten, dann ausblenden
+        });
+
+        // Scroll Animation Logik
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100; // Ab wann das Element beim Scrollen sichtbar wird
+                var elementVisible = 100;
                 if (elementTop < windowHeight - elementVisible) {
                     reveals[i].classList.add("active");
                 }
