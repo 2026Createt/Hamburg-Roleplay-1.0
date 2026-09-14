@@ -38,14 +38,15 @@
             scroll-behavior: smooth;
         }
 
-        /* Ladebildschirm (Preloader) */
+        /* NEUER Ladebildschirm (Preloader) mit Lichteffekt */
         #preloader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--bg-color);
+            /* Leichter Verlauf im Hintergrund macht es cleaner */
+            background: radial-gradient(circle at center, #111827 0%, #04060a 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -53,17 +54,45 @@
             z-index: 9999;
             transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
         }
+        
+        .preloader-content {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Der leuchtende Lichtschein HINTER dem Bild */
+        .preloader-content::before {
+            content: '';
+            position: absolute;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 60%);
+            z-index: -1;
+            animation: preloader-glow 2s infinite ease-in-out;
+        }
+
         .preloader-img {
-            max-width: 350px;
+            max-width: 400px; /* Ein kleines bisschen größer */
             width: 90%;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            animation: preloader-pulse 2s infinite;
+            border-radius: 15px; /* Weichere Kanten */
+            /* Eleganter Rahmen und harter Schatten für Tiefe */
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.05);
+            animation: preloader-pulse 2s infinite ease-in-out;
+        }
+
+        /* Animationen für Bild und Licht */
+        @keyframes preloader-glow {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.5; }
         }
         @keyframes preloader-pulse {
-            0% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(0.95); opacity: 0.8; }
+            0% { transform: scale(0.98); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(0.98); }
         }
 
         body {
@@ -258,7 +287,9 @@
 
     <!-- LADEBILDSCHIRM (PRELOADER) -->
     <div id="preloader">
-        <img src="https://images-ext-1.discordapp.net/external/LhY2dwlnsWtWn1Gry4pQnq_VSC66gNHwTypoEXoxOzc/https/media.galaxybot.app/server/1548738485324619907/f0346fa9-dd0d-4f74-bef2-a3d9fe88af6d.jpeg?format=webp" alt="Hamburg 1.0 Roleplay Logo" class="preloader-img">
+        <div class="preloader-content">
+            <img src="https://images-ext-1.discordapp.net/external/LhY2dwlnsWtWn1Gry4pQnq_VSC66gNHwTypoEXoxOzc/https/media.galaxybot.app/server/1548738485324619907/f0346fa9-dd0d-4f74-bef2-a3d9fe88af6d.jpeg?format=webp" alt="Hamburg 1.0 Roleplay Logo" class="preloader-img">
+        </div>
     </div>
 
     <!-- Navigation -->
