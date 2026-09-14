@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
@@ -196,7 +196,7 @@
         }
         .card h3 { font-size: 1.5rem; margin-bottom: 15px; color: #fff; display: flex; align-items: center; gap: 12px; }
 
-        /* Roadmap (Neu) */
+        /* Roadmap */
         .roadmap-container {
             max-width: 800px; margin: 0 auto;
             background: var(--card-bg); padding: 40px;
@@ -208,7 +208,7 @@
         .progress-bar-bg { width: 100%; height: 12px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; }
         .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-dark), var(--accent-light)); border-radius: 10px; transition: width 1.5s ease-in-out; }
 
-        /* Partner Bereich (Neu) */
+        /* Partner Bereich */
         .partner-grid {
             display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;
         }
@@ -217,9 +217,11 @@
             border-radius: 12px; border: 1px dashed rgba(255,255,255,0.2);
             display: flex; justify-content: center; align-items: center;
             color: var(--text-muted); font-weight: 600; text-align: center; padding: 20px;
-            transition: all 0.3s ease; cursor: default;
+            transition: all 0.3s ease; cursor: pointer; text-decoration: none;
         }
         .partner-card:hover { border-color: var(--accent-light); color: #fff; transform: translateY(-5px); }
+        .partner-card.disabled { cursor: default; }
+        .partner-card.disabled:hover { transform: none; border-color: rgba(255,255,255,0.2); color: var(--text-muted); }
 
         /* Team & List Styling */
         .team-list li { margin-bottom: 12px; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
@@ -235,14 +237,6 @@
         summary::after { content: '+'; font-size: 1.5rem; color: var(--accent-light); transition: transform 0.3s; }
         details[open] summary::after { transform: rotate(45deg); }
         details p { padding: 0 20px 20px 20px; color: var(--text-muted); }
-
-        /* Galerie (Sneak Peek) */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .gallery-item {
-            width: 100%; height: 200px; background: var(--card-bg); border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: center;
-            align-items: center; color: var(--text-muted); font-size: 0.9rem; overflow: hidden;
-        }
 
         /* Discord Widget Area */
         .discord-section {
@@ -283,7 +277,7 @@
         <a href="https://discord.gg/FxgtAXj2e6" class="btn">Teil des Teams werden</a>
     </header>
 
-    <!-- Entwicklungs-Roadmap (NEU) -->
+    <!-- Entwicklungs-Roadmap -->
     <section id="roadmap" class="reveal">
         <h2 class="section-title">Projekt Fortschritt</h2>
         <p class="section-subtitle">Wir kommunizieren transparent. Hier siehst du live, wie weit wir mit dem Aufbau sind, bevor der Server offiziell an den Start geht.</p>
@@ -357,32 +351,25 @@
                     <li><span class="status-green">✔️</span> Administration <span class="status-green">(Frei)</span></li>
                     <li><span class="status-green">✔️</span> Moderation <span class="status-green">(Frei)</span></li>
                     <li><span class="status-green">✔️</span> Support & Technik <span class="status-green">(Frei)</span></li>
+                    <li><span class="status-green">✔️</span> Builder <span class="status-green">(Frei)</span></li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <!-- Unsere Partner (NEU) -->
+    <!-- Unsere Partner -->
     <section id="partner" class="reveal">
         <h2 class="section-title">Unsere Partner</h2>
         <p class="section-subtitle">Wir arbeiten mit anderen großartigen Projekten zusammen. Willst du Partner werden? Melde dich über unseren Discord!</p>
         
         <div class="partner-grid">
-            <div class="partner-card">Platzhalter für Partner-Logo 1</div>
-            <div class="partner-card">Platzhalter für Partner-Logo 2</div>
-            <div class="partner-card">Dein Server hier? Ticket öffnen!</div>
-        </div>
-    </section>
-
-    <!-- Sneak Peek Galerie -->
-    <section id="galerie" class="reveal">
-        <h2 class="section-title">Sneak Peek</h2>
-        <p class="section-subtitle">Ein kleiner Einblick in die Entwicklung und unsere Designs.</p>
-        <div class="gallery-grid">
-            <div class="gallery-item">[Bild 1 - z.B. Logo / Uniform]</div>
-            <div class="gallery-item">[Bild 2 - z.B. Ingame Szene]</div>
-            <div class="gallery-item">[Bild 3 - z.B. Fahrzeug]</div>
-            <div class="gallery-item">[Bild 4 - z.B. Wache]</div>
+            <!-- Xcom Partner Link -->
+            <a href="https://discord.gg/BmAJErtxEU" target="_blank" class="partner-card">
+                Xcom
+            </a>
+            
+            <!-- Platzhalter -->
+            <div class="partner-card disabled">Dein Server hier? Ticket öffnen!</div>
         </div>
     </section>
 
