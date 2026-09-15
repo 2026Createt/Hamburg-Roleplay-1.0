@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
@@ -405,6 +405,7 @@
         <div class="partner-grid">
             <a href="https://discord.gg/BmAJErtxEU" target="_blank" class="partner-card sound-click">Xcom</a>
             <a href="https://discord.gg/ECVY5bzXD7" target="_blank" class="partner-card sound-click">Regensburg Roleplay VC</a>
+            <a href="https://discord.gg/BbeGGT5MH7" target="_blank" class="partner-card sound-click">Palm City RP VC</a>
             <div class="partner-card disabled">Dein Server hier? Ticket öffnen!</div>
         </div>
     </section>
