@@ -5,20 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hamburg 1.0 Roleplay | Roblox Notruf Hamburg</title>
 
-    <!-- Discord & Social Media Embed -->
     <meta property="og:title" content="Hamburg 1.0 Roleplay | Notruf Hamburg">
     <meta property="og:description" content="Wir bauen den ersten Serious RP Server für Notruf Hamburg auf Roblox. Aktuell im Aufbau – sichere dir deinen Platz im Team oder als Spieler!">
     <meta property="og:image" content="https://images-ext-1.discordapp.net/external/LhY2dwlnsWtWn1Gry4pQnq_VSC66gNHwTypoEXoxOzc/https/media.galaxybot.app/server/1548738485324619907/f0346fa9-dd0d-4f74-bef2-a3d9fe88af6d.jpeg?format=webp">
-    <meta property="og:url" content="https://2026createt.github.io/Hamburg-Roleplay-1.0/">
     <meta name="theme-color" content="#1b365d">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="HIER_LOGO_URL_EINTRAGEN.png">
-
-    <!-- Moderne Google Schriftart importieren -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
-    <!-- Lenis für Buttery Smooth Scrolling -->
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
 
     <style>
@@ -33,23 +25,16 @@
             --status-orange: #f59e0b;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
-        /* 1. EIGENER SCROLLBALKEN (Custom Scrollbar) */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-color); }
         ::-webkit-scrollbar-thumb { background: var(--accent-dark); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--accent-light); }
 
-        /* 2. EIGENER MAUSZEIGER (Versteckt Standard-Maus) */
         @media (pointer: fine) {
             body { cursor: none; }
-            a, button, .card, details summary, iframe { cursor: none; }
+            a, button, .card, details summary, iframe, .hamburger { cursor: none; }
         }
         #cursor-dot {
             width: 8px; height: 8px; background-color: var(--accent-light);
@@ -68,47 +53,59 @@
         }
         .cursor-hover #cursor-dot { width: 0; height: 0; }
 
-        body {
-            background-color: var(--bg-color); color: var(--text-main);
-            line-height: 1.7; overflow-x: hidden;
-        }
+        body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.7; overflow-x: hidden; }
 
-        /* Ladebildschirm (Preloader) */
+        /* NEUER PREMIUM LADEBILDSCHIRM */
         #preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #111827 0%, #04060a 100%);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: #04060a; z-index: 9999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 9999; transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
         }
-        .preloader-content { position: relative; display: flex; justify-content: center; align-items: center; }
-        .preloader-content::before {
-            content: ''; position: absolute; width: 140%; height: 140%;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 60%);
-            z-index: -1; animation: preloader-glow 2s infinite ease-in-out;
-        }
-        .preloader-img {
-            max-width: 400px; width: 90%; border-radius: 15px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8); border: 1px solid rgba(255,255,255,0.05);
-            animation: preloader-pulse 2s infinite ease-in-out;
-        }
-        @keyframes preloader-glow { 0%, 100% { transform: scale(0.8); opacity: 0.5; } 50% { transform: scale(1.1); opacity: 1; } }
-        @keyframes preloader-pulse { 0%, 100% { transform: scale(0.98); } 50% { transform: scale(1.02); } }
+        .loader-content { width: 80%; max-width: 400px; text-align: center; }
+        .loader-logo { font-size: 2rem; font-weight: 800; letter-spacing: 3px; margin-bottom: 20px; color: #fff; }
+        .loader-logo span { color: var(--accent-light); text-shadow: var(--glow); }
+        .loader-text { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px; font-weight: 300; letter-spacing: 1px; height: 20px; }
+        .loader-bar-bg { width: 100%; height: 4px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; position: relative; margin-bottom: 15px; }
+        .loader-bar-fill { height: 100%; width: 0%; background: var(--accent-light); box-shadow: var(--glow); transition: width 0.1s linear; }
+        .loader-percentage { font-size: 1.5rem; font-weight: 600; color: #fff; font-variant-numeric: tabular-nums; }
 
-        /* Scroll Animation Klassen */
         .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* Navigation */
+        /* NAVIGATION & HAMBURGER MENÜ */
         nav {
-            position: fixed; top: 0; width: 100%; padding: 20px 5%;
+            position: fixed; top: 0; width: 100%; padding: 15px 5%;
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(6, 9, 15, 0.9); backdrop-filter: blur(15px);
+            background: rgba(6, 9, 15, 0.8); backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255,255,255,0.05); z-index: 1000;
         }
-        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; z-index: 1001; }
         .logo span { color: var(--accent-light); }
+        
+        .nav-links { display: flex; gap: 30px; align-items: center; list-style: none; }
+        .nav-links a { color: var(--text-main); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent-light); }
+        
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
+        .hamburger span { width: 25px; height: 3px; background: #fff; border-radius: 3px; transition: all 0.3s ease; }
+        
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-links {
+                position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+                background: rgba(6, 9, 15, 0.98); flex-direction: column;
+                justify-content: center; align-items: center; gap: 40px;
+                transition: right 0.4s ease; backdrop-filter: blur(10px);
+            }
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 1.5rem; }
+            /* Hamburger zu X Animation */
+            .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.active span:nth-child(2) { opacity: 0; }
+            .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        }
 
-        /* Status Badge */
         .status-badge {
             display: inline-flex; align-items: center; gap: 10px;
             background: rgba(245, 158, 11, 0.1); color: var(--status-orange);
@@ -121,7 +118,6 @@
         }
         @keyframes pulse-animation { 0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); } 50% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0.4); } }
 
-        /* Hero Section */
         .hero {
             min-height: 100vh; display: flex; flex-direction: column;
             justify-content: center; align-items: center; text-align: center;
@@ -134,68 +130,26 @@
         }
         .hero h1, .hero p, .hero .btn, .hero .status-badge { z-index: 2; position: relative; }
         
-        /* 3D ÜBERSCHRIFTEN */
         .hero h1 { 
-            font-size: clamp(2.5rem, 6vw, 5rem); 
-            font-weight: 800; 
-            margin-bottom: 20px; 
-            color: #ffffff;
-            text-shadow: 
-                0px 1px 0px #1b365d,
-                0px 2px 0px #1b365d,
-                0px 3px 0px #132742,
-                0px 4px 0px #132742,
-                0px 5px 0px #0c182a,
-                0px 10px 20px rgba(0,0,0,0.8),
-                0px 0px 30px rgba(59, 130, 246, 0.5);
+            font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; margin-bottom: 20px; color: #ffffff;
+            text-shadow: 0px 1px 0px #1b365d, 0px 2px 0px #1b365d, 0px 3px 0px #132742, 0px 4px 0px #132742, 0px 5px 0px #0c182a, 0px 10px 20px rgba(0,0,0,0.8), 0px 0px 30px rgba(59, 130, 246, 0.5);
         }
         
         .section-title { 
-            text-align: center; 
-            font-size: 2.8rem; 
-            margin-bottom: 15px; 
-            font-weight: 800; 
-            text-transform: uppercase; 
-            letter-spacing: 2px;
-            color: #ffffff;
-            text-shadow: 
-                0px 1px 0px #1b365d,
-                0px 2px 0px #1b365d,
-                0px 3px 0px #132742,
-                0px 4px 0px #132742,
-                0px 10px 15px rgba(0,0,0,0.6);
+            text-align: center; font-size: 2.8rem; margin-bottom: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #ffffff;
+            text-shadow: 0px 1px 0px #1b365d, 0px 2px 0px #1b365d, 0px 3px 0px #132742, 0px 4px 0px #132742, 0px 10px 15px rgba(0,0,0,0.6);
             transition: transform 0.3s ease, text-shadow 0.3s ease;
-            cursor: default;
-        }
-        .section-title:hover {
-            transform: translateY(-3px);
-            text-shadow: 
-                0px 1px 0px #1b365d,
-                0px 2px 0px #1b365d,
-                0px 3px 0px #132742,
-                0px 4px 0px #132742,
-                0px 5px 0px #0c182a,
-                0px 6px 0px #0c182a,
-                0px 15px 25px rgba(0,0,0,0.9),
-                0px 0px 40px rgba(59, 130, 246, 0.8);
         }
 
         .hero p { font-size: 1.2rem; max-width: 700px; margin-bottom: 40px; color: var(--text-muted); }
 
-        /* Partikel Styling */
         .particle {
             position: absolute; bottom: -20px; background: var(--accent-light);
             border-radius: 50%; box-shadow: 0 0 10px var(--accent-light);
             opacity: 0; animation: floatUp linear infinite; z-index: 1;
         }
-        @keyframes floatUp {
-            0% { transform: translateY(0) scale(1); opacity: 0; }
-            20% { opacity: 0.6; }
-            80% { opacity: 0.6; }
-            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
-        }
+        @keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity: 0; } 20% { opacity: 0.6; } 80% { opacity: 0.6; } 100% { transform: translateY(-100vh) scale(0.5); opacity: 0; } }
 
-        /* News Ticker Laufband */
         .ticker-wrap {
             width: 100%; background: #04060a; border-top: 1px solid rgba(255,255,255,0.05);
             border-bottom: 1px solid rgba(255,255,255,0.05); overflow: hidden;
@@ -208,16 +162,16 @@
         .ticker-content span { margin: 0 40px; color: #fff; }
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* Buttons */
         .btn {
             background: linear-gradient(135deg, var(--accent-light), var(--accent-dark));
             color: #fff; padding: 15px 40px; border-radius: 30px; text-decoration: none;
             font-weight: 600; font-size: 1.1rem; transition: all 0.3s ease;
             box-shadow: var(--glow); border: 2px solid transparent; display: inline-block;
         }
-        .btn:hover { background: transparent; border-color: var(--accent-light); box-shadow: 0 10px 30px rgba(59, 130, 246, 0.6); }
+        .btn:hover { background: transparent; border-color: var(--accent-light); box-shadow: 0 10px 30px rgba(59, 130, 246, 0.6); color: #fff; }
 
-        /* Back-to-Top Button */
+        .btn-nav { padding: 10px 25px; font-size: 0.9rem; }
+
         #btt-btn {
             position: fixed; bottom: -60px; right: 30px; width: 50px; height: 50px;
             background: var(--card-bg); border: 1px solid var(--accent-light);
@@ -228,17 +182,14 @@
         #btt-btn.show { bottom: 30px; opacity: 1; }
         #btt-btn:hover { background: var(--accent-light); transform: translateY(-5px); }
 
-        /* Sections & Cards */
-        section { padding: 80px 5%; max-width: 1300px; margin: 0 auto; }
+        section { padding: 100px 5%; max-width: 1300px; margin: 0 auto; }
         .section-subtitle { text-align: center; color: var(--text-muted); max-width: 800px; margin: 0 auto 50px auto; font-size: 1.1rem; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
 
-        /* 3D Karten Setup */
         .card {
             background-color: var(--card-bg); padding: 40px 30px; border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.05); position: relative;
-            transform-style: preserve-3d;
-            transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.1s ease-out;
+            transform-style: preserve-3d; transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.1s ease-out;
         }
         .card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
@@ -249,12 +200,19 @@
         .card h3, .card p, .card ul, .card a { transform: translateZ(30px); }
         .card h3 { font-size: 1.5rem; margin-bottom: 15px; color: #fff; display: flex; align-items: center; gap: 12px; }
 
-        /* Restliche Styles */
+        /* ROADMAP ANIMATION CSS */
         .roadmap-container { max-width: 800px; margin: 0 auto; background: var(--card-bg); padding: 40px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
         .progress-box { margin-bottom: 25px; } .progress-box:last-child { margin-bottom: 0; }
         .progress-info { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 600; }
         .progress-bar-bg { width: 100%; height: 12px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-dark), var(--accent-light)); border-radius: 10px; }
+        
+        .progress-fill { 
+            height: 100%; 
+            width: 0%; /* Startet bei 0 für die Animation */
+            background: linear-gradient(90deg, var(--accent-dark), var(--accent-light)); 
+            border-radius: 10px; 
+            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1); /* Smoothe Füll-Animation */
+        }
         
         .partner-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
         .partner-card {
@@ -293,24 +251,36 @@
 </head>
 <body>
 
-    <!-- Benutzerdefinierter Mauszeiger -->
     <div id="cursor-dot"></div>
     <div id="cursor-outline"></div>
 
-    <!-- LADEBILDSCHIRM -->
+    <!-- NEUER LADEBILDSCHIRM -->
     <div id="preloader">
-        <div class="preloader-content">
-            <img src="https://images-ext-1.discordapp.net/external/LhY2dwlnsWtWn1Gry4pQnq_VSC66gNHwTypoEXoxOzc/https/media.galaxybot.app/server/1548738485324619907/f0346fa9-dd0d-4f74-bef2-a3d9fe88af6d.jpeg?format=webp" alt="Hamburg 1.0 Roleplay Logo" class="preloader-img">
+        <div class="loader-content">
+            <div class="loader-logo">HAMBURG <span>1.0</span></div>
+            <div class="loader-text" id="loader-text">Initialisiere Assets...</div>
+            <div class="loader-bar-bg">
+                <div class="loader-bar-fill" id="loader-bar"></div>
+            </div>
+            <div class="loader-percentage"><span id="loader-perc-text">0</span>%</div>
         </div>
     </div>
 
-    <!-- Navigation -->
+    <!-- NEUE NAVIGATION MIT HAMBURGER -->
     <nav>
         <div class="logo">Hamburg <span>1.0</span></div>
-        <a href="https://discord.gg/FxgtAXj2e6" class="btn sound-click" style="padding: 10px 25px; font-size: 0.9rem;">Jetzt Joinen</a>
+        <div class="hamburger" id="hamburger-menu">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#home" class="nav-item sound-click">Start</a></li>
+            <li><a href="#roadmap" class="nav-item sound-click">Roadmap</a></li>
+            <li><a href="#konzept" class="nav-item sound-click">Konzept</a></li>
+            <li><a href="#team" class="nav-item sound-click">Team</a></li>
+            <li><a href="https://discord.gg/FxgtAXj2e6" class="btn btn-nav sound-click">Jetzt Joinen</a></li>
+        </ul>
     </nav>
 
-    <!-- Startbereich -->
     <header class="hero" id="home">
         <div id="particles-container"></div>
         <div class="status-badge">
@@ -321,7 +291,6 @@
         <a href="https://discord.gg/FxgtAXj2e6" class="btn sound-click">Teil des Teams werden</a>
     </header>
 
-    <!-- News Ticker -->
     <div class="ticker-wrap">
         <div class="ticker-content">
             🚨 ERNSTHAFTES RP <span>•</span> 🚓 REALISTISCHE EINSÄTZE <span>•</span> 💼 EIGENE WIRTSCHAFT <span>•</span> 🏗️ AKTIV IM AUFBAU <span>•</span> 🤝 GEMEINSCHAFTSPROJEKT <span>•</span> 
@@ -329,7 +298,7 @@
         </div>
     </div>
 
-    <!-- Entwicklungs-Roadmap -->
+    <!-- ROADMAP MIT DATA-ATTRIBUTEN FÜR ANIMATION -->
     <section id="roadmap" class="reveal">
         <h2 class="section-title">Projekt Fortschritt</h2>
         <p class="section-subtitle">Wir kommunizieren transparent. Hier siehst du live, wie weit wir mit dem Aufbau sind, bevor der Server offiziell an den Start geht.</p>
@@ -337,20 +306,20 @@
         <div class="roadmap-container">
             <div class="progress-box">
                 <div class="progress-info"><span>Discord-Struktur & Regelwerk</span><span>100%</span></div>
-                <div class="progress-bar-bg"><div class="progress-fill" style="width: 100%;"></div></div>
+                <!-- data-width gibt an, wie weit der Balken fahren soll -->
+                <div class="progress-bar-bg"><div class="progress-fill anim-bar" data-width="100%"></div></div>
             </div>
             <div class="progress-box">
                 <div class="progress-info"><span>Team-Aufbau (Leitung & Mods)</span><span>30%</span></div>
-                <div class="progress-bar-bg"><div class="progress-fill" style="width: 30%;"></div></div>
+                <div class="progress-bar-bg"><div class="progress-fill anim-bar" data-width="30%"></div></div>
             </div>
             <div class="progress-box">
                 <div class="progress-info"><span>Server-Technik & Vorbereitung</span><span>60%</span></div>
-                <div class="progress-bar-bg"><div class="progress-fill" style="width: 60%;"></div></div>
+                <div class="progress-bar-bg"><div class="progress-fill anim-bar" data-width="60%"></div></div>
             </div>
         </div>
     </section>
 
-    <!-- Konzept -->
     <section id="konzept" class="reveal">
         <h2 class="section-title">Unser Konzept</h2>
         <p class="section-subtitle">Wir heben uns bewusst von der Masse ab. Bei uns findest du kein sinnloses Chaos, sondern strukturierte Abläufe, klare Regeln und eine reife Community.</p>
@@ -371,7 +340,6 @@
         </div>
     </section>
 
-    <!-- Team & Recruiting -->
     <section id="team" class="reveal">
         <h2 class="section-title">Team & Recruiting</h2>
         <p class="section-subtitle">Wir suchen engagierte und reife Persönlichkeiten, die Verantwortung übernehmen wollen. Komm ins Team!</p>
@@ -398,7 +366,6 @@
         </div>
     </section>
 
-    <!-- Unsere Partner -->
     <section id="partner" class="reveal">
         <h2 class="section-title">Unsere Partner</h2>
         <p class="section-subtitle">Wir arbeiten mit anderen großartigen Projekten zusammen. Willst du Partner werden? Melde dich!</p>
@@ -408,7 +375,6 @@
         </div>
     </section>
 
-    <!-- FAQ Bereich -->
     <section id="faq" class="reveal">
         <h2 class="section-title">Häufige Fragen (FAQ)</h2>
         <div class="faq-container">
@@ -427,7 +393,6 @@
         </div>
     </section>
 
-    <!-- Discord & Widget Section -->
     <section id="discord" class="reveal">
         <div class="discord-section">
             <div class="discord-text">
@@ -449,45 +414,91 @@
         </div>
     </section>
 
-    <!-- Back to Top Button -->
     <a href="#home" id="btt-btn" class="sound-click">↑</a>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Hamburg 1.0 Roleplay. Alle Rechte vorbehalten. Dies ist ein privates und unabhängiges Roblox-Projekt.</p>
     </footer>
 
-    <!-- SKRIPTE FÜR ALLE EFFEKTE -->
     <script>
-        // 1. Preloader
+        // 1. NEUES PRELOADER SCRIPT (Premium Look)
         window.addEventListener('load', () => {
-            setTimeout(() => {
-                let preloader = document.getElementById('preloader');
-                preloader.style.opacity = '0';
-                preloader.style.visibility = 'hidden';
-            }, 1800);
+            let progress = 0;
+            const bar = document.getElementById('loader-bar');
+            const percText = document.getElementById('loader-perc-text');
+            const statusText = document.getElementById('loader-text');
+            const preloader = document.getElementById('preloader');
+            
+            const texts = ["Initialisiere Assets...", "Lade Texturen...", "Überprüfe Server-Status...", "Verbinde zu Hamburg 1.0..."];
+            let textIndex = 0;
+
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 8) + 2; // Zufällige Schritte
+                if (progress >= 100) progress = 100;
+                
+                bar.style.width = progress + '%';
+                percText.innerText = progress;
+
+                // Text wechseln basierend auf Fortschritt
+                if(progress > 25 && textIndex === 0) { statusText.innerText = texts[1]; textIndex++; }
+                else if(progress > 60 && textIndex === 1) { statusText.innerText = texts[2]; textIndex++; }
+                else if(progress > 85 && textIndex === 2) { statusText.innerText = texts[3]; textIndex++; }
+
+                if (progress === 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        preloader.style.transform = 'translateY(-100%)'; // Slidet nach oben weg
+                        setTimeout(() => preloader.style.display = 'none', 800);
+                    }, 500);
+                }
+            }, 60);
         });
 
-        // 2. Lenis - BUTTERY SMOOTH SCROLLING
+        // 2. HAMBURGER MENÜ LOGIK
+        const hamburger = document.getElementById('hamburger-menu');
+        const navLinks = document.getElementById('nav-links');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Schließt das Menü, wenn ein Link geklickt wird
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // 3. Lenis (Smooth Scroll)
         const lenis = new Lenis({
-            duration: 1.5, 
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: true,
-            mouseMultiplier: 1,
-            smoothTouch: false,
-            touchMultiplier: 2,
+            duration: 1.5, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+            direction: 'vertical', smooth: true
         });
-
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        // 3. Scroll Animation (Reveal) & Back to Top Button
+        // 4. ANIMIERTE ROADMAP BALKEN & Scroll Reveal
         const bttBtn = document.getElementById("btt-btn");
+        
+        // Observer für die animierten Balken
+        const barObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    const bar = entry.target;
+                    const targetWidth = bar.getAttribute('data-width');
+                    bar.style.width = targetWidth; // Startet die CSS Animation
+                    barObserver.unobserve(bar); // Nur einmal animieren
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.anim-bar').forEach(bar => {
+            barObserver.observe(bar);
+        });
+
         function handleScroll() {
             let reveals = document.querySelectorAll(".reveal");
             for (let i = 0; i < reveals.length; i++) {
@@ -495,45 +506,36 @@
                     reveals[i].classList.add("active");
                 }
             }
-            if (window.scrollY > 500) { bttBtn.classList.add("show"); } 
-            else { bttBtn.classList.remove("show"); }
+            if (window.scrollY > 500) { bttBtn.classList.add("show"); } else { bttBtn.classList.remove("show"); }
         }
         window.addEventListener("scroll", handleScroll);
         handleScroll();
 
         bttBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            lenis.scrollTo('#home');
+            e.preventDefault(); lenis.scrollTo('#home');
         });
 
-        // 4. Eigener Mauszeiger (Custom Cursor)
+        // 5. Custom Cursor
         const dot = document.getElementById("cursor-dot");
         const outline = document.getElementById("cursor-outline");
         window.addEventListener("mousemove", (e) => {
-            dot.style.left = e.clientX + "px";
-            dot.style.top = e.clientY + "px";
-            outline.animate({
-                left: e.clientX + "px",
-                top: e.clientY + "px"
-            }, { duration: 150, fill: "forwards" });
+            dot.style.left = e.clientX + "px"; dot.style.top = e.clientY + "px";
+            outline.animate({ left: e.clientX + "px", top: e.clientY + "px" }, { duration: 150, fill: "forwards" });
         });
-        const interactables = document.querySelectorAll('a, button, .card, details summary, .partner-card');
+        const interactables = document.querySelectorAll('a, button, .card, details summary, .partner-card, .hamburger');
         interactables.forEach(el => {
             el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
             el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
         });
 
-        // 5. 3D Tilt Effekt für die Karten
+        // 6. 3D Tilt Cards
         const tiltCards = document.querySelectorAll(".tilt-card");
         tiltCards.forEach(card => {
             card.addEventListener("mousemove", (e) => {
                 const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -10; 
-                const rotateY = ((x - centerX) / centerX) * 10;
+                const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+                const centerX = rect.width / 2; const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -10; const rotateY = ((x - centerX) / centerX) * 10;
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
             });
             card.addEventListener("mouseleave", () => {
@@ -541,69 +543,39 @@
             });
         });
 
-        // 6. Fliegende Lichtpartikel im Hintergrund
+        // 7. Background Particles
         const particlesContainer = document.getElementById('particles-container');
         for (let i = 0; i < 25; i++) {
-            let span = document.createElement('span');
-            span.classList.add('particle');
-            let size = Math.random() * 4 + 2; 
-            span.style.width = size + 'px';
-            span.style.height = size + 'px';
+            let span = document.createElement('span'); span.classList.add('particle');
+            let size = Math.random() * 4 + 2; span.style.width = size + 'px'; span.style.height = size + 'px';
             span.style.left = Math.random() * 100 + '%';
-            span.style.animationDuration = (Math.random() * 10 + 5) + 's'; 
-            span.style.animationDelay = (Math.random() * 5) + 's';
+            span.style.animationDuration = (Math.random() * 10 + 5) + 's'; span.style.animationDelay = (Math.random() * 5) + 's';
             particlesContainer.appendChild(span);
         }
 
-        // 7. WEB AUDIO API - UI SOUND EFFEKTE
+        // 8. Audio Setup
         let audioCtx;
-        
         document.body.addEventListener('click', function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
+            if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
             document.body.removeEventListener('click', initAudio);
         });
-
         function playHoverSound() {
             if (!audioCtx || audioCtx.state === 'suspended') return;
-            const osc = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(800, audioCtx.currentTime); 
-            osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.03);
-            gainNode.gain.setValueAtTime(0.015, audioCtx.currentTime); 
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
-            osc.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.03);
+            const osc = audioCtx.createOscillator(); const gainNode = audioCtx.createGain();
+            osc.type = 'sine'; osc.frequency.setValueAtTime(800, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.03);
+            gainNode.gain.setValueAtTime(0.015, audioCtx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+            osc.connect(gainNode); gainNode.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.03);
         }
-
         function playClickSound() {
             if (!audioCtx || audioCtx.state === 'suspended') return;
-            const osc = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(300, audioCtx.currentTime); 
-            osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
-            gainNode.gain.setValueAtTime(0.03, audioCtx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
-            osc.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.1);
+            const osc = audioCtx.createOscillator(); const gainNode = audioCtx.createGain();
+            osc.type = 'triangle'; osc.frequency.setValueAtTime(300, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+            gainNode.gain.setValueAtTime(0.03, audioCtx.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+            osc.connect(gainNode); gainNode.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.1);
         }
-
-        interactables.forEach(el => {
-            el.addEventListener('mouseenter', playHoverSound);
-        });
-        document.querySelectorAll('.sound-click').forEach(el => {
-            el.addEventListener('click', playClickSound);
-        });
+        interactables.forEach(el => { el.addEventListener('mouseenter', playHoverSound); });
+        document.querySelectorAll('.sound-click').forEach(el => { el.addEventListener('click', playClickSound); });
     </script>
 </body>
 </html>
